@@ -1,7 +1,9 @@
+extern alias libXam;
+
 using System;
 using System.Net;
-using MonoTouch.CoreFoundation;
-using MonoTouch.SystemConfiguration;
+using libXam.CoreFoundation;
+using libXam.SystemConfiguration;
 
 public enum NetworkStatus
 {

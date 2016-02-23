@@ -1,8 +1,10 @@
+extern alias libXam;
 using System;
 using System.Diagnostics;
-using MonoTouch.Foundation;
-using MonoTouch.ObjCRuntime;
-using MonoTouch.UIKit;
+using libXam.Foundation;
+using libXam.ObjCRuntime;
+using libXam.UIKit;
+using nint = libXam::System.nint;
 
 public class AppiraterSettings
 {
@@ -313,12 +315,12 @@ public class Appirater : NSObject
 			return false;
 
 		// check if the app has been used enough
-		int useCount = userDefaults.IntForKey (USE_COUNT);
+		int useCount = (int)userDefaults.IntForKey(USE_COUNT);
 		if (useCount < settings.UsesUntiPrompt)
 			return false;
 
 		// check if the user has done enough significant events
-		int sigEventCount = userDefaults.IntForKey (SIGNIFICANT_EVENT_COUNT);
+		int sigEventCount = (int)userDefaults.IntForKey (SIGNIFICANT_EVENT_COUNT);
 		if (sigEventCount < settings.SigEventsUntilPrompt)
 			return false;
 
@@ -365,7 +367,7 @@ public class Appirater : NSObject
 			}
 
 			// increment the use count
-			int useCount = userDefaults.IntForKey (USE_COUNT);
+			int useCount = (int)userDefaults.IntForKey (USE_COUNT);
 			useCount ++;
 			userDefaults.SetInt (useCount, USE_COUNT);
 			if (settings.Debug)
@@ -401,7 +403,7 @@ public class Appirater : NSObject
 			}
 
 			// increment the significant event count
-			int sigEventCount = userDefaults.IntForKey (SIGNIFICANT_EVENT_COUNT);
+			int sigEventCount = (int)userDefaults.IntForKey (SIGNIFICANT_EVENT_COUNT);
 			sigEventCount ++;
 			userDefaults.SetInt (sigEventCount, SIGNIFICANT_EVENT_COUNT);
 			if (settings.Debug)
@@ -441,10 +443,10 @@ public class Appirater : NSObject
 			this.owner = owner;
 		}
 
-		public override void Clicked (UIAlertView alertview, int buttonIndex)
+	    public override void Clicked (UIAlertView alertview, nint buttonIndex)
 		{
 			NSUserDefaults userDefaults = NSUserDefaults.StandardUserDefaults;
-			switch (buttonIndex) {
+			switch ((int)buttonIndex) {
 				case 0:
 						// they don't want to rate it
 					userDefaults.SetBool (true, DECLINED_TO_RATE);
