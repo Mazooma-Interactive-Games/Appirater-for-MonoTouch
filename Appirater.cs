@@ -50,6 +50,8 @@ public class AppiraterSettings
 		 */
 	public int DaysUntilPrompt;
 
+
+
 	/*
 		 An example of a 'use' would be if the user launched the app. Bringing the app
 		 into the foreground (on devices that support it) would also be considered
@@ -131,7 +133,9 @@ public class Appirater : NSObject
 	readonly AppiraterSettings settings;
 	UIAlertView	ratingAlert;
 
-	public Appirater (int appId)
+    public Action<bool> OnRate;
+
+    public Appirater (int appId)
 			: this (new AppiraterSettings (appId))
 	{
 	}
@@ -455,7 +459,8 @@ public class Appirater : NSObject
 				case 1:
 						// they want to rate it
 					owner.RateApp ();
-					break;
+			        owner.OnRate?.Invoke(true);
+			        break;
 				case 2:
 						// remind them later
 					userDefaults.SetDouble (DateTime.Now.ToOADate (), REMINDER_REQUEST_DATE);
