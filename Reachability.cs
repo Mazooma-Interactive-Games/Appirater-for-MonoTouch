@@ -14,15 +14,15 @@ public enum NetworkStatus
 
 public static class Reachability
 {
-	public static string HostName = "www.google.com";
+	public static String HostName = "www.google.com";
 	
-	public static bool IsReachableWithoutRequiringConnection (NetworkReachabilityFlags flags)
+	public static Boolean IsReachableWithoutRequiringConnection (NetworkReachabilityFlags flags)
 	{
 		// Is it reachable with the current network configuration?
-		bool isReachable = (flags & NetworkReachabilityFlags.Reachable) != 0;
+		Boolean isReachable = (flags & NetworkReachabilityFlags.Reachable) != 0;
 
 		// Do we need a connection to reach it?
-		bool noConnectionRequired = (flags & NetworkReachabilityFlags.ConnectionRequired) == 0;
+		Boolean noConnectionRequired = (flags & NetworkReachabilityFlags.ConnectionRequired) == 0;
 
 		// Since the network stack will automatically try to get the WAN up,
 		// probe that
@@ -33,7 +33,7 @@ public static class Reachability
 	}
 
 	// Is the host reachable with the current network configuration
-	public static bool IsHostReachable (string host)
+	public static Boolean IsHostReachable (String host)
 	{
 		if (host == null || host.Length == 0)
 			return false;
@@ -69,10 +69,10 @@ public static class Reachability
 	//
 	static NetworkReachability adHocWiFiNetworkReachability;
 
-	public static bool IsAdHocWiFiNetworkAvailable (out NetworkReachabilityFlags flags)
+	public static Boolean IsAdHocWiFiNetworkAvailable (out NetworkReachabilityFlags flags)
 	{
 		if (adHocWiFiNetworkReachability == null) {
-			adHocWiFiNetworkReachability = new NetworkReachability (new IPAddress (new byte [] {169,254,0,0}));
+			adHocWiFiNetworkReachability = new NetworkReachability (new IPAddress (new Byte [] {169,254,0,0}));
 			adHocWiFiNetworkReachability.SetNotification (OnChange);
 			adHocWiFiNetworkReachability.Schedule (CFRunLoop.Current, CFRunLoop.ModeDefault);
 		}
@@ -85,7 +85,7 @@ public static class Reachability
 	
 	static NetworkReachability defaultRouteReachability;
 
-	static bool IsNetworkAvaialable (out NetworkReachabilityFlags flags)
+	static Boolean IsNetworkAvaialable (out NetworkReachabilityFlags flags)
 	{
 		if (defaultRouteReachability == null) {
 			defaultRouteReachability = new NetworkReachability (new IPAddress (0));
@@ -102,7 +102,7 @@ public static class Reachability
 	public static NetworkStatus RemoteHostStatus ()
 	{
 		NetworkReachabilityFlags flags;
-		bool reachable;
+		Boolean reachable;
 		
 		if (remoteHostReachability == null) {
 			remoteHostReachability = new NetworkReachability (HostName);
@@ -131,7 +131,7 @@ public static class Reachability
 	public static NetworkStatus InternetConnectionStatus ()
 	{
 		NetworkReachabilityFlags flags;
-		bool defaultNetworkAvailable = IsNetworkAvaialable (out flags);
+		Boolean defaultNetworkAvailable = IsNetworkAvaialable (out flags);
 		if (defaultNetworkAvailable) {
 			if ((flags & NetworkReachabilityFlags.IsDirect) != 0)
 				return NetworkStatus.NotReachable;
