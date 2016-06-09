@@ -107,7 +107,7 @@ public class AppiraterSettings
 		Message = String.Format ("If you enjoy using {0}, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!", AppName);
 		MessageTitle = String.Format ("Rate {0}", AppName);
 		CancelButton = "No, Thanks";
-		RateButton = String.Format ("Rate {0} + Free Credit", AppName);
+		RateButton = String.Format ("Rate + Free Credit", AppName);
 		RateLaterButton = "Remind me later";
 		DaysUntilPrompt = 30;
 		UsesUntiPrompt = 20;
