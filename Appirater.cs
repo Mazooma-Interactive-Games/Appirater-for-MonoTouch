@@ -107,7 +107,7 @@ public class AppiraterSettings
 		Message = String.Format ("If you enjoy using {0}, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!", AppName);
 		MessageTitle = String.Format ("Rate {0}", AppName);
 		CancelButton = "No, Thanks";
-		RateButton = String.Format ("Rate {0}", AppName);
+		RateButton = String.Format ("Rate {0} + Free Credit", AppName);
 		RateLaterButton = "Remind me later";
 		DaysUntilPrompt = 30;
 		UsesUntiPrompt = 20;
@@ -128,8 +128,8 @@ public class Appirater : NSObject
 	const String RATED_CURRENT_VERSION = "kAppiraterRatedCurrentVersion";
 	const String DECLINED_TO_RATE = "kAppiraterDeclinedToRate";
 	const String REMINDER_REQUEST_DATE = "kAppiraterReminderRequestDate";
-	const String TEMPLATE_REVIEW_URL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id={0}";
-	const String TEMPLATE_REVIEW_URL_IOS7 = @"itms-apps://itunes.apple.com/{0}/app/id{1}";
+	const String TEMPLATE_REVIEW_URL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id={0}&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8";
+	const String TEMPLATE_REVIEW_URL_IOS7 = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id={0}&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8";
 	readonly AppiraterSettings settings;
 	UIAlertView	ratingAlert;
 
@@ -251,7 +251,7 @@ public class Appirater : NSObject
 			Int32 systemMajorVersion = Convert.ToInt16 (UIDevice.CurrentDevice.SystemVersion.Split ('.') [0].ToString ());
 			if (systemMajorVersion >= 7)
 			{
-				reviewURL = String.Format (TEMPLATE_REVIEW_URL_IOS7, NSLocale.PreferredLanguages [0], settings.AppId);
+				reviewURL = String.Format (TEMPLATE_REVIEW_URL_IOS7,  settings.AppId);
 			}
 			userDefaults.SetBool (true, RATED_CURRENT_VERSION);
 			userDefaults.Synchronize ();
